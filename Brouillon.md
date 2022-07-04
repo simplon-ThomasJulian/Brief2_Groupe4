@@ -1,14 +1,13 @@
 ```mermaid
 flowchart LR
     subgraph Local
-    A[Ordinateur] -.-|SSH : IP publique| B{Box}
+    Ordinateur[Ordinateur] -.-|SSH : IP publique| Box{Box}
     end
-    B -.-|SSH| C[Fournisseur <br /> internet]
-    C -.-|SSH : IP publique| D[VM Admin Linux <br /> Firewall <br /> 1 port <br /> 2 cartes réseau]
+    Box -.-|SSH| Internet[Fournisseur <br /> internet]
+    Internet -.-|SSH : IP publique| VMAdmin[VM Admin Linux <br /> Firewall <br /> 1 port <br /> 2 cartes réseau]
     subgraph Azure - 10.0.4.0/24
-    D ---|SSH : IP privée| E((Switch))
-    E ---|SSH : IP privée| F[VM BDD Linux <br /> IP privé  <br /> Carte réseau]
-    E ---|SSH : IP privée| G[VM Application Linux <br /> IP privé  <br /> Carte réseau]
-    G---|SSH| F
+    VMAdmin ---|SSH : IP privée| VN((Virtual Network privé))
+    VN ---|SSH : IP privée| BDD[VM BDD Linux <br /> Carte réseau]
+    VN ---|SSH : IP privée| Appli[VM Application Linux <br /> Carte réseau]
     end
 ```
