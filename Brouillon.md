@@ -6,8 +6,8 @@ flowchart LR
     Box -.-|SSH| Internet[Fournisseur <br /> internet]
     Internet -.-|SSH <br /> ETH1 : | VMAdmin[VM Admin Linux <br /> Firewall <br /> 1 port <br /> 2 cartes réseau]
     subgraph Azure - 10.0.4.0/24
-    VMAdmin ---|SSH  <br /> ETH0 : 10.0.4.1| VN((Virtual Network privé <br /> ETH0))
-    VN ---|SSH  <br /> ETH0 : 10.0.4.2| BDD[VM BDD Linux <br /> Carte réseau]
-    VN ---|SSH  <br />  ETH0 : 10.0.4.3| Appli[VM Application Linux <br /> Carte réseau]
+    VMAdmin ---|SSH  <br /> ETH0 : 10.0.4.1| VN((Virtual Network privé))
+    VN ---|SSH  <br /> ETH0 : 10.0.4.2| BDD[VM BDD Linux]
+    VN ---|SSH  <br />  ETH0 : 10.0.4.3| Appli[VM Application Linux]
     end
 ```
