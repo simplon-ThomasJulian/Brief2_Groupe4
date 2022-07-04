@@ -13,3 +13,19 @@ flowchart LR
     D ---|RDP| F[Serveur Windows <br /> 20.124.185.125 <br /> 10.0.0.18]
     end
 ```
+
+ 
+```mermaid
+flowchart LR
+    subgraph Local
+    A[Ordinateur] -.-|SSH| B{Box}
+    end
+    B -.-|SSH| C[Fournisseur <br /> internet]
+    C -.-|SSH| D[VM Admin <br /> Linux]
+    C -.-|SSH| D[VM Admin Linux <br /> Firewall <br /> 1 port <br /> Carte réseau]
+    subgraph Azure - 10.0.4.0/24
+    D ---|SSH| E[VM Application Linux <br /> Nom de dom  <br /> IP privé  <br /> Carte réseau]
+    D ---|SSH| F[VM BDD Linux  <br /> Nom de dom  <br /> IP privé  <br /> Carte réseau]
+    E---|SSH| F
+    end
+```
