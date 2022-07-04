@@ -10,4 +10,5 @@ flowchart LR
     VN ---|SSH  <br /> ETH0 : 10.0.4.2| BDD[VM BDD Linux]
     VN ---|SSH  <br />  ETH0 : 10.0.4.3| Appli[VM Application Linux]
     end
+    Appli --- |ETH1 : | Services[Services applicatifs]
 ```
