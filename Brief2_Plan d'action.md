@@ -2,7 +2,7 @@
 
 ## **Plan d'action du projet**
 
-## Plan réseau
+## 1. Plan réseau
 
 ```mermaid
 flowchart TD
@@ -19,7 +19,17 @@ flowchart TD
     Appli --- |ETH1 : | Services[Services applicatifs]
 ```
 
-## Ressources Brief 2
+## 2. Ressources
+
+### Liste de ressources
+
+- Réseau virtuel Vnet avec plage d'adresses en 10.0.4.0/24
+- Interface réseau possédant une IP privée et une IP publique pour accéder via internet à la VM administrative (accessible via une clé rsa uniquement) et VM applicative (paramétrée uniquement pour la partie service)
+- Une interface réseau en IP privée pour permettre l'échange sur le réseau privé entre les trois VMs
+- VM Administrative
+- VM BDD
+- VM Applicative
+- 3 disques de stockage choisis en fonction des machines    
 
 ### VM Admin Linux
 **Nom de la VM :** <mark>vm-linux-administration</mark>
@@ -111,7 +121,7 @@ Mask: 255.255.255.0
 |---|---|---|---|---|---|---|
 |disquebasededonnees | SSD Premium | 8 | 3500 | 420 | SSE avec PMK | Lecture/Ecriture |
 
-## Tâches 
+## 3. Tâches 
 
 - Création du groupe de ressource : **Brief_2_Groupe_4**
 - Création du réseau avec plage d'adressage des IP privées
@@ -129,13 +139,3 @@ Mask: 255.255.255.0
 - Création de groupes d'utilisateurs
 - Test des performances du système et du service aux utilisateurs
 - Test de la scalabilité du système
-
-## Liste de ressources
-
-- Réseau virtuel Vnet avec plage d'adresses en 10.0.4.0/24
-- Interface réseau possédant une IP privée et une IP publique pour accéder via internet à la VM administrative (accessible via une clé rsa uniquement) et VM applicative (paramétrée uniquement pour la partie service)
-- Une interface réseau en IP privée pour permettre l'échange sur le réseau privé entre les trois VMs
-- VM Administrative
-- VM BDD
-- VM Applicative
-- 3 disques de stockage choisis en fonction des machines    
