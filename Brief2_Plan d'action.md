@@ -24,8 +24,8 @@ flowchart TD
 ### Liste de ressources
 
 - Réseau virtuel Vnet avec plage d'adresses en 10.0.4.0/24
-- Interface réseau possédant une IP privée et interface réseau possédant une IP publique pour accéder via internet à la VM administrative (accessible via une clé rsa uniquement) et VM applicative (paramétrée uniquement pour la partie service)
-- Deux autres interfaces réseau en IP privée pour la VM BDD et la VM applicative afin de permettre l'échange sur le réseau privé entre les trois VMs
+- Interfaces réseau possédant une IP publique pour accéder via internet à la VM administrative (accessible via une clé rsa uniquement) et VM applicative (paramétrée uniquement pour la partie service)
+- Trois autres interfaces réseau en IP privée pour permettre l'échange sur le réseau privé entre les trois VMs
 - VM Administrative
 - VM BDD
 - VM Applicative
@@ -132,10 +132,9 @@ Mask: 255.255.255.0
   - Basique/Par défaut pour la VM Administrative
 - Chargement des clefs publiques dans la VM Administrative
 - Configuration des VMs :
-  -  Administrative : Firewall, (installation d'un hyperviseur ?)
+  -  Administrative : Firewall
   -  Base De Données : MariaDB
   -  Applicative : Nextcloud
 - Table de routage des interfaces réseaux
 - Création de groupes d'utilisateurs
 - Test des performances du système et du service aux utilisateurs
-- Test de la scalabilité du système
