@@ -24,8 +24,8 @@ flowchart TD
 ### Liste de ressources
 
 - Réseau virtuel Vnet avec plage d'adresses en 10.0.4.0/24
-- Interface réseau possédant une IP privée et une IP publique pour accéder via internet à la VM administrative (accessible via une clé rsa uniquement) et VM applicative (paramétrée uniquement pour la partie service)
-- Une interface réseau en IP privée pour permettre l'échange sur le réseau privé entre les trois VMs
+- Interface réseau possédant une IP privée et interface réseau possédant une IP publique pour accéder via internet à la VM administrative (accessible via une clé rsa uniquement) et VM applicative (paramétrée uniquement pour la partie service)
+- Deux autres interfaces réseau en IP privée pour la VM BDD et la VM applicative afin de permettre l'échange sur le réseau privé entre les trois VMs
 - VM Administrative
 - VM BDD
 - VM Applicative
