@@ -281,7 +281,7 @@ sudo nano /etc/apache2/ports.conf
 sudo systemctl restart apache2
 ```
     
-Pour auditer les ports ouverts sur le serveur :
+On vérifie les ports ouverts sur le serveur via la commande :
     
 ```console
 ss -plnt
@@ -291,7 +291,7 @@ ss -plnt
 
 #### **Sur Azure**
 
-Dans l'onglet *Mise en réseau* de la VM applicative et, dans *Règles des ports d'entrée*, on autorise le de port de destination que l'on doit ouvrir.    
+Dans l'onglet *Mise en réseau* de la VM application, dans les *Règles des ports d'entrée*, on autorise le port choisi sur le réseau Azure.    
 
 ![](https://i.imgur.com/zd6ay3F.png)
 ![](https://i.imgur.com/37r9qaf.png)
@@ -321,7 +321,7 @@ Installation de PHP et de ses dépendances
 sudo apt install -y php php-gd php-curl php-zip php-dom php-xml php-simplexml php-mbstring php-mysql 
 ```
 
-On se connecte à la VM BDD pour créer la base de donnée sur MariaDB, nécessaire à l'installation et la configuration de Nextcloud.
+On se connecte à la VM BDD pour créer la base de donnée avec MariaDB qui est nécessaire à l'installation et la configuration du service Nextcloud.
     
 ```console
 CREATE DATABASE nextclouddb;
@@ -360,7 +360,7 @@ Le fichier de configuration **config.php** va automatiquement se créer dans le 
 Une fois le fichier créé, on y ajoute les domaines autorisés :
 
 ```console
-nano config.php
+sudo nano config.php
 ```
 
 ```console
@@ -395,7 +395,7 @@ On va configurer Apache :
 /etc/apache2/sites-available
 ```
 
-On ajoute le nom du serveur au document **nextcloud.conf**
+On ajoute le nom du serveur au fichier de configuration de **nextcloud.conf**
 
 ```console
 touch nextcloud.conf
@@ -406,11 +406,11 @@ touch nextcloud.conf
 
 ## Configuration de Nextcloud
 
-Connexion à Nextcloud par les adresses : http://nextg4.westus3.cloudapp.azure.com:8080/nextcloud et http://20.118.128.190:8080/nextcloud 
+Connexion à Nextcloud pour la configuration via le navigateur web par l'adresse : http://nextg4.westus3.cloudapp.azure.com:8080/nextcloud 
   
 <div id=connexionNC> 
 
-### Création du profil Nextcloud primaire
+### Création du compte administrateur de Nextcloud:
 ![](https://i.imgur.com/tGq0Mks.png)
 
 ![](https://i.imgur.com/FF3Uk9R.png)
@@ -432,7 +432,7 @@ Création d'un utilisateur :
 
 ![](https://i.imgur.com/jRwZzBt.png)
 
-Pour créer un utilisateur directement avec les lignes de commandes sur la VM Applicative :
+Il est possible de créer un utilisateur directement avec les lignes de commandes suivante sur la VM Applicative :
 
 ![](https://i.imgur.com/5rs5rJY.png)
 
@@ -530,17 +530,17 @@ On peut manipuler le fichier et réaliser plusieurs actions (commenter, partager
 
 <div id =bonusproxy>  
 
-### Proxyjump:
+### Proxyjump pour l'accès des administrateurs aux VM:
 
 Créer un fichier **config** dans le dossier **.ssh/** de notre pc portable.
 
 ![](https://i.imgur.com/JMJ8cHy.png)
 
-Sous Windows, la ligne correspondant à *IdentityFile* pour **Host bastion** n'est pas nécessaire et peut conduire à une ligne d'erreur  (permissions système).
+Sous Windows, la ligne correspondant à *IdentityFile* pour **Host bastion** (VM Administration) n'est pas nécessaire et peut conduire à une ligne d'erreur  (permissions système).
 
 ![](https://i.imgur.com/BPYxGP7.png)
 
-Ici pour se connectecter à la VM Administrateur il suffit de taper **ssh bastion**.
+Ici pour se connectecter à la VM Administration, il suffit de taper **ssh bastion**.
 
 ![](https://i.imgur.com/kxS8rpL.png)
 
@@ -568,10 +568,12 @@ On utilise cette ligne de commande pour s'assurer que certbot peut s'éxécuter
 sudo ln -s /snap/bin/certbot /usr/bin/certbot
 ```
 
-On lance certbot grâce à la ligne de commande suivante
+On lance certbot grâce à la ligne de commande suivante qui va lancer la création du certificat SSl et de sa clé
 ```console
 sudo certbot --apache
 ```
+
+
 
 
 Ajout des chemins du certificat ssl généré sur le serveur Apache
@@ -588,4 +590,22 @@ SSLCertificateFile /etc/letsencrypt/live/nextg4.westus3.cloudapp.azure.com/fullc
 SSLCertificateKeyFile /etc/letsencrypt/live/nextg4.westus3.cloudapp.azure.com/privkey.pem
 
 ``` 
+
+</br>
+
+On peut vérifier en se connectant au site que la connexion est bien sécurisée en https
+
+![](https://i.imgur.com/uAJV78P.png)
+
+Le certificat est visible et accessible
+![](https://i.imgur.com/ipepMR7.png)
+
+</br> 
+
+![](https://i.imgur.com/lRm8CRX.png)
+
+</br>
+
+![](https://i.imgur.com/KKxMitJ.png)
+
 ![](https://i.imgur.com/Bda1ENC.png)
