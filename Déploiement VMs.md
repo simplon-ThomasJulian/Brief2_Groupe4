@@ -5,14 +5,14 @@
 
 - [**Création des VMs**](#CréaVM)  
     - [Azure : exemple de la VM Administrative](#AzureAdmin)
+- [**VM Administration**](#VMAdmin)
     - [Configuration des accès SSH](#ConfigSSH)
-- [**VM Administrative**](#VMAdmin)
     - [Choix du numéro du port TCP](#PortTCP)
 - [**VM Base De Données**](#VMBDD)
   - [Installation de MariaDB](#MariaDB)
   - [Configuration du nouveau disque](#NouvDisque)
-- [**VM Applicative**](#VMAppli)
-    - [Création d'un DNS sur la plateforme Azure](#NomDomaine)
+- [**VM Application**](#VMAppli)
+    - [Affectation d'un Nom de Domaine sur la plateforme Azure](#NomDomaine)
     - [Installation Apache Server](#ApacheServer)
     - [Choix du numéro du port TCP](#PortTcp)
       - [Sur Apache](#ApachePort)
@@ -20,12 +20,12 @@
   - [Installation de PHP et Nextcloud](#NextcloudApp) 
   - [Configuration du chemin entre Mariadb et Nextcloud](#ConfigChemin)
 - [**Nextcloud**](#nextcloud)
-    - [Création du profil Nextcloud primaire](#connexionNC)
+    - [Création du compte administrateur de Nextcloud](#connexionNC)
     - [Interface utilisateur](#nextcloud_user)
     - [Ajout de fichiers](#AjoutFichier)
 
 - [**Bonus**](#bonus)
-    - [Bonus Proxyjump](#bonusproxy)
+    - [Proxyjump](#bonusproxy)
     - [Certification SSL](#certbot)
         - [Installation Certbot](#cerbot_install)
 
@@ -74,6 +74,9 @@ Ajout des clées RSA des ordinateurs administrateurs autorisés dans le fichier 
 ```
 ![](https://i.imgur.com/jkWtZRt.png)
 
+    
+    
+[&#x23F6;](#top)
 
 <div id=PortTCP>
     
@@ -98,8 +101,11 @@ ss -plnt
 ```
 ![](https://i.imgur.com/BeskfNq.png)
 
-Un fois le port 10022 ouvert, on peut supprimer le port 22 dans Azure, dans la VM Admin, dans l'onglet *Mise en réseau*.
+Un fois le port 10022 ouvert, on peut l'ajouter et supprimer le port 22 dans Azure, pour la VM Admin, dans l'onglet *Mise en réseau*.
  
+![](https://i.imgur.com/s5FmBnC.png)
+   
+    
 Pour se connecter à la VM Admin sur le port 10022 :
 ```console
 ssh usergroupe@ippublic -p "num de port"
@@ -107,7 +113,7 @@ ssh usergroupe@ippublic -p "num de port"
 
 ![](https://i.imgur.com/LPj0zDx.png)
     
-    
+[&#x23F6;](#top)    
     
 <div id=VMBDD>
     
@@ -117,6 +123,11 @@ Connexion en SSH depuis la VM Administration vers la VM Base de donnée pour ins
         
 ![](https://i.imgur.com/elBxZRE.png)
      
+    
+    
+[&#x23F6;](#top)
+    
+
 <div id=MariaDB>
         
 ### Installation de MariaDB
@@ -182,7 +193,12 @@ Et il faut changer l'adresse IP par l'adresse locale de la machine 10.0.4.5 à l
 ![](https://i.imgur.com/7YQbmbj.png)
 
 ![](https://i.imgur.com/jMld2uG.png)
-  
+ 
+    
+    
+[&#x23F6;](#top)
+    
+    
 <div id=NouvDisque>    
 
 ### Configuration du nouveau disque
@@ -193,9 +209,14 @@ Modification du chemin d'accès à la base de données après le montage du nouv
     
 ![](https://i.imgur.com/3f11mFg.png)
  
+    
+[&#x23F6;](#top)
+    
+    
+    
 <div id=VMAppli>
 
-## **Installation et configuration de la VM Applicative**
+## **Installation et configuration de la VM Application**
 
 Connexion en SSH à la VM Applicative via la VM administration.
 
@@ -203,7 +224,7 @@ Connexion en SSH à la VM Applicative via la VM administration.
 
 <div id="NomDomaine">
    
-### Création d'un DNS sur la plateforme Azure    
+### Affectation d'un Nom de Domaine sur la plateforme Azure    
 Choix du nom de domaine pour l'IP publique de la VM applicative pour installer Nextcloud et le serveur Apache. Ceci afin que les utilisateurs puissent accéder à Nextcloud par un autre biais que l'adresse IP publique plus simple à utiliser.
 
 ![](https://i.imgur.com/B9hpy17.png)
@@ -212,6 +233,12 @@ Choix du nom de domaine pour l'IP publique de la VM applicative pour installer N
      
 ![](https://i.imgur.com/vvQlPGs.png)
  
+    
+    
+[&#x23F6;](#top)
+    
+    
+
 <div id="ApacheServer">
      
 ### Installation Apache Server
@@ -249,8 +276,12 @@ a2enmod ssl
 ```
 
 ```console
-sudo systemctl restart apache2
+sudo systemctl reload apache2
 ```
+    
+[&#x23F6;](#top)
+    
+
 
 <div id=PortTcp>     
     
@@ -267,7 +298,7 @@ nano /etc/apache2/sites-enabled/000-default.conf
 ```
 ![](https://i.imgur.com/8z3jOzn.png)
 ```console
-sudo systemctl restart apache2
+sudo systemctl reload apache2
 ```
     
 Pour ouvrir le port d'écoute :
@@ -278,7 +309,7 @@ sudo nano /etc/apache2/ports.conf
 ![](https://i.imgur.com/A4FIG8g.png)
 
 ```console
-sudo systemctl restart apache2
+sudo systemctl reload apache2
 ```
     
 On vérifie les ports ouverts sur le serveur via la commande :
@@ -296,12 +327,17 @@ Dans l'onglet *Mise en réseau* de la VM application, dans les *Règles des port
 ![](https://i.imgur.com/zd6ay3F.png)
 ![](https://i.imgur.com/37r9qaf.png)
 
-On vérifie que le serveur Apache est joignable via le navigateur avec l'adresse IP et le DNS : 
+On vérifie que le serveur Apache est joignable via le navigateur avec l'adresse IP et le Nom de Domaine : 
 
 ![](https://i.imgur.com/lC57diq.png)
 ![](https://i.imgur.com/VmzGwGJ.png)
   
 Ça fonctionne !
+    
+    
+[&#x23F6;](#top)
+    
+
     
 <div id=NextcloudApp>
 
@@ -351,6 +387,10 @@ sudo mv nextcloud /var/www/html
 ```console
 sudo chown -R www-data:www-data /var/www/html/nextcloud
 ```
+    
+    
+[&#x23F6;](#top)
+
  
 <div id=ConfigChemin>  
 
@@ -402,6 +442,21 @@ touch nextcloud.conf
 ```
 ![](https://i.imgur.com/HhrTEM1.png)  
 
+
+On active l'hôte virtuel avec cette ligne de commande
+```console
+a2ensite nextcloud.conf
+```
+
+On recharge Apache2 pour valider les modifications
+```console
+systemctl reload apache2
+```
+
+
+[&#x23F6;](#top)
+
+
 <div id=nextcloud> 
 
 ## Configuration de Nextcloud
@@ -410,7 +465,7 @@ Connexion à Nextcloud pour la configuration via le navigateur web par l'adresse
   
 <div id=connexionNC> 
 
-### Création du compte administrateur de Nextcloud:
+### Création du compte administrateur de Nextcloud
 ![](https://i.imgur.com/tGq0Mks.png)
 
 ![](https://i.imgur.com/FF3Uk9R.png)
@@ -435,6 +490,11 @@ Création d'un utilisateur :
 Il est possible de créer un utilisateur directement avec les lignes de commandes suivante sur la VM Applicative :
 
 ![](https://i.imgur.com/5rs5rJY.png)
+
+
+[&#x23F6;](#top)
+
+
 
 <div id=nextcloud_user> 
  
@@ -497,11 +557,19 @@ Onglet *Settings* qui recense tous les paramètres modifiables par l'utilisateur
 Onglet *Help* qui contient de la documentation à destination de l'utilisateur
 ![](https://i.imgur.com/6JE69Ug.png)
 
+
+
+[&#x23F6;](#top)
+
+
+
 </br>
+
+
 
 <div id=AjoutFichier> 
 
-#### Ajout de fichiers
+### Ajout de fichiers
 
 </br>
 On peut ajouter un fichier depuis l'onglet *Files*
@@ -524,7 +592,12 @@ On peut manipuler le fichier et réaliser plusieurs actions (commenter, partager
 
 ![](https://i.imgur.com/fA0pgzH.png)
 
+
+[&#x23F6;](#top)
+
+
 <div id=bonus>
+
 
 ## Bonus
 
@@ -568,12 +641,10 @@ On utilise cette ligne de commande pour s'assurer que certbot peut s'éxécuter
 sudo ln -s /snap/bin/certbot /usr/bin/certbot
 ```
 
-On lance certbot grâce à la ligne de commande suivante qui va lancer la création du certificat SSl et de sa clé
+On lance certbot grâce à la ligne de commande suivante qui va lancer la création du certificat SSL et de sa clé
 ```console
 sudo certbot --apache
 ```
-
-
 
 
 Ajout des chemins du certificat ssl généré sur le serveur Apache
@@ -609,3 +680,5 @@ Le certificat est visible et accessible
 ![](https://i.imgur.com/KKxMitJ.png)
 
 ![](https://i.imgur.com/Bda1ENC.png)
+
+[&#x23F6;](#top)
